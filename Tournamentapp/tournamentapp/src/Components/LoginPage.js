@@ -23,6 +23,7 @@ export default class LoginPage extends Component {
 
   render() {
     return (
+      <div className="background">
       <div className="login-container">
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
@@ -56,6 +57,7 @@ export default class LoginPage extends Component {
             </p>
           </div>
         </form>
+      </div>
       </div>
     );
   }

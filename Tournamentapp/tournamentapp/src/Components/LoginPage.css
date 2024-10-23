@@ -6,9 +6,15 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #fdfdfd; 
+    
   }
- body{
+ .background{
     background-color: #293f54;
+    background-image: url("../../src/assets/top-view-frame-with-sports-attributes-copy-space_1015293-104040.avif");
+    background-size: cover;
+    background-repeat: repeat;
+    width: 100%;
+    
  }
   h2 {
     text-align: center;
