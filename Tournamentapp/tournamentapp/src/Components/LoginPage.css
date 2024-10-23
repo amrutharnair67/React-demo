@@ -11,25 +11,33 @@
  .background{
     background-color: #293f54;
     background-image: url("../../src/assets/top-view-frame-with-sports-attributes-copy-space_1015293-104040.avif");
-    background-size: cover;
-    background-repeat: repeat;
-    width: 100%;
+    background-repeat: repeat; 
+    
+    width: 100vw; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
     
  }
   h2 {
     text-align: center;
     color: #333;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   label {
     display: block;
     margin-bottom: 5px; /* Space between label and input */
     color: #555;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 200;
+    
   }
   
   input {
-    width: 100%; 
-    padding: 10px; 
+    width: 90%; 
+    padding: 10px ; 
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 10px; 
@@ -43,16 +51,19 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   .forgot-password {
     text-align: center; 
     margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   .register-link {
     text-align: center; 
     margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
   }
   
   .register-link a {

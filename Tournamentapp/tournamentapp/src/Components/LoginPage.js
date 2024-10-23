@@ -2,39 +2,19 @@ import React, { Component } from "react";
 import "./LoginPage.css"; // Import your CSS file for styling
 
 export default class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
-
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you can implement your login logic
-    console.log("Email:", this.state.email);
-    console.log("Password:", this.state.password);
-  };
-
   render() {
     return (
       <div className="background">
       <div className="login-container">
         <h2>Login</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div>
             <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
               name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
+             
             />
           </div>
           <div>
@@ -43,8 +23,7 @@ export default class LoginPage extends Component {
               type="password"
               id="password"
               name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
+          
             />
           </div>
           <button type="submit">Log In</button>
