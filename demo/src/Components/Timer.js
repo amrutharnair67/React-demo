@@ -9,7 +9,7 @@ function Timer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);  
+  }, []);  //aaaa
 
   return (
     <div>
