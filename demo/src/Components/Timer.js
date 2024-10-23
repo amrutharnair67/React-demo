@@ -9,8 +9,7 @@ function Timer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);  // Cleanup function 
-  
+  }, []);  
 
   return (
     <div>
