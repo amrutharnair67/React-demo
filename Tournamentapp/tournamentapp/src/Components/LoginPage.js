@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './LoginPage.css'; // Import your CSS file for styling
+import React, { Component } from "react";
+import "./LoginPage.css"; // Import your CSS file for styling
 
 export default class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   }
 
@@ -17,8 +17,8 @@ export default class LoginPage extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     // Here you can implement your login logic
-    console.log('Email:', this.state.email);
-    console.log('Password:', this.state.password);
+    console.log("Email:", this.state.email);
+    console.log("Password:", this.state.password);
   };
 
   render() {
@@ -51,11 +51,12 @@ export default class LoginPage extends Component {
             <a href="/forgotpassword">Forgot Password?</a>
           </div>
           <div className="register-link">
-            <p>Not registered? <a href="/register">Create an account</a></p>
+            <p>
+              Not registered? <a href="/register">Create an account</a>
+            </p>
           </div>
         </form>
       </div>
     );
   }
 }
-

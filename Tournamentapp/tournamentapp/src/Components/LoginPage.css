@@ -1,0 +1,55 @@
+/* LoginPage.css */
+.login-container {
+    max-width: 400px; /* Set maximum width */
+    margin: 100px auto; /* Center the container vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fdfdfd; 
+  }
+ body{
+    background-color: #293f54;
+ }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px; /* Space between label and input */
+    color: #555;
+  }
+  
+  input {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px; 
+  }
+  
+  button {
+    width: 100%; 
+    padding: 10px;
+    background-color: #2b619b; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    text-align: center; 
+    margin-top: 10px;
+  }
+  
+  .register-link {
+    text-align: center; 
+    margin-top: 10px;
+  }
+  
+  .register-link a {
+    color: #007bff; 
+  }
+  
