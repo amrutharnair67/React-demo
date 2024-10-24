@@ -53,6 +53,16 @@ button {
   font-family: "Times New Roman", Times, serif;
 }
 
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center;    /* Centers the button vertically if the container has a set height */
+  width: 50%;
+  margin: 0 auto;
+}
+
+
 .forgot-password {
   text-align: center;
   margin-top: 10px;
@@ -67,4 +77,10 @@ button {
 
 .register-link a {
   color: #007bff;
+}
+.error {
+  color: rgb(206, 112, 112); 
+  font-size: 1em; 
+  font-family: 'Times New Roman', Times, serif; 
+  margin-top: 5px; 
 }

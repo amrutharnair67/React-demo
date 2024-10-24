@@ -1,49 +1,139 @@
-import React, { useState } from 'react';
-import "../registrationPage/RegisterPage.css"
+import React, { useState } from "react";
+import "../registrationPage/RegisterPage.css";
 
 function RegisterPage() {
-  const [teamName, setTeamName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [captainFirstName, setCaptainFirstName] = useState('');
-  const [captainLastName, setCaptainLastName] = useState('');
-  const [player2FirstName, setPlayer2FirstName] = useState('');
-  const [player2LastName, setPlayer2LastName] = useState('');
-  const [player3FirstName, setPlayer3FirstName] = useState('');
-  const [player3LastName, setPlayer3LastName] = useState('');
-  const [substitute1FirstName, setSubstitute1FirstName] = useState('');
-  const [substitute1LastName, setSubstitute1LastName] = useState('');
-  const [teamLogoPath, setTeamLogoPath] = useState(null);
-  const [comment, setComment] = useState('');
+  const [formData, setFormData] = useState({
+    teamName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    captainFirstName: "",
+    captainLastName: "",
+    player2FirstName: "",
+    player2LastName: "",
+    player3FirstName: "",
+    player3LastName: "",
+    substitute1FirstName: "",
+    substitute1LastName: "",
+    teamLogoPath: null,
+    comment: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
 
   const handleFileChange = (e) => {
-    setTeamLogoPath(e.target.files[0]);
+    setFormData({
+      ...formData,
+      teamLogoPath: e.target.files[0],
+    });
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern =
+      /^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    const phonePattern = /^\d{10}$/;
+    return phonePattern.test(phone);
+  };
+
+  const validatePassword = (password) => {
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+  };
+
+  const validateName = (name) => {
+    const namePattern = /^[A-Za-z]+$/;
+    return namePattern.test(name);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    console.log({
-      teamName,
-      email,
-      password,
-      phoneNumber,
-      captainFirstName,
-      captainLastName,
-      player2FirstName,
-      player2LastName,
-      player3FirstName,
-      player3LastName,
-      substitute1FirstName,
-      substitute1LastName,
-      teamLogoPath,
-      comment
-    });
+
+    const errors = {};
+    if (!formData.teamName) errors.teamName = "Team Name is required.";
+    else if (!validateName(formData.teamName))
+      errors.teamName = "Team Name must only contain letters.";
+    if (!formData.email) {
+      errors.email = "Email is required.";
+    } else if (!validateEmail(formData.email)) {
+      errors.email = "Invalid email format.";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required.";
+    } else if (!validatePassword(formData.password)) {
+      errors.password =
+        "Password must be 8+ chars, with 1 uppercase, 1 lowercase, 1 number & 1 special char.";
+    }
+    if (!formData.phoneNumber) {
+      errors.phoneNumber = "Phone Number is required.";
+    } else if (!validatePhoneNumber(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone Number must be 10 digits.";
+    }
+    if (!formData.captainFirstName)
+      errors.captainFirstName = "Captain's First Name is required.";
+    else if (!validateName(formData.captainFirstName))
+      errors.captainFirstName =
+        "Captain's First Name must only contain letters.";
+    if (!formData.captainLastName)
+      errors.captainLastName = "Captain's Last Name is required.";
+    else if (!validateName(formData.captainLastName))
+      errors.captainLastName = "Captain's Last Name must only contain letters.";
+    if (!formData.player2FirstName)
+      errors.player2FirstName = "Player 2 First Name is required.";
+    else if (!validateName(formData.player2FirstName))
+      errors.player2FirstName =
+        "Player 2 First Name must only contain letters.";
+    if (!formData.player2LastName)
+      errors.player2LastName = "Player 2 Last Name is required.";
+    else if (!validateName(formData.player2LastName))
+      errors.player2LastName = "Player 2 Last Name must only contain letters.";
+    if (!formData.player3FirstName)
+      errors.player3FirstName = "Player 3 First Name is required.";
+    else if (!validateName(formData.player3FirstName))
+      errors.player3FirstName =
+        "Player 3 First Name must only contain letters.";
+    if (!formData.player3LastName)
+      errors.player3LastName = "Player 3 Last Name is required.";
+    else if (!validateName(formData.player3LastName))
+      errors.player3LastName = "Player 3 Last Name must only contain letters.";
+    if (!formData.substitute1FirstName)
+      errors.substitute1FirstName = "Substitute 1 First Name is required.";
+    else if (!validateName(formData.substitute1FirstName))
+      errors.substitute1FirstName =
+        "Substitute 1 First Name must only contain letters.";
+    if (!formData.substitute1LastName)
+      errors.substitute1LastName = "Substitute 1 Last Name is required.";
+    else if (!validateName(formData.substitute1LastName))
+      errors.substitute1LastName =
+        "Substitute 1 Last Name must only contain letters.";
+
+    if (Object.keys(errors).length) {
+      setErrors(errors);
+      return;
+    }
+
+    console.log("Registration success:", formData);
   };
 
   return (
-    <div className='maincontainer'>
+    <div className="maincontainer">
       <div className="container">
         <h2 className="title">Register Your Team Now</h2>
         <form className="registration-form" onSubmit={handleSubmit}>
@@ -53,9 +143,10 @@ function RegisterPage() {
               type="text"
               id="teamName"
               name="teamName"
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
+              value={formData.teamName}
+              onChange={handleChange}
             />
+            {errors.teamName && <p className="error">{errors.teamName}</p>}
           </div>
 
           <div className="form-group">
@@ -64,9 +155,10 @@ function RegisterPage() {
               type="email"
               id="email"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
             />
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
 
           <div className="form-group">
@@ -75,9 +167,10 @@ function RegisterPage() {
               type="password"
               id="password"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
             />
+            {errors.password && <p className="error">{errors.password}</p>}
           </div>
 
           <div className="form-group">
@@ -86,9 +179,12 @@ function RegisterPage() {
               type="text"
               id="phoneNumber"
               name="phoneNumber"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={formData.phoneNumber}
+              onChange={handleChange}
             />
+            {errors.phoneNumber && (
+              <p className="error">{errors.phoneNumber}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -97,9 +193,12 @@ function RegisterPage() {
               type="text"
               id="captainFirstName"
               name="captainFirstName"
-              value={captainFirstName}
-              onChange={(e) => setCaptainFirstName(e.target.value)}
+              value={formData.captainFirstName}
+              onChange={handleChange}
             />
+            {errors.captainFirstName && (
+              <p className="error">{errors.captainFirstName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -108,9 +207,12 @@ function RegisterPage() {
               type="text"
               id="captainLastName"
               name="captainLastName"
-              value={captainLastName}
-              onChange={(e) => setCaptainLastName(e.target.value)}
+              value={formData.captainLastName}
+              onChange={handleChange}
             />
+            {errors.captainLastName && (
+              <p className="error">{errors.captainLastName}</p>
+            )}
           </div>
 
           {/* Player 2 */}
@@ -120,9 +222,12 @@ function RegisterPage() {
               type="text"
               id="player2FirstName"
               name="player2FirstName"
-              value={player2FirstName}
-              onChange={(e) => setPlayer2FirstName(e.target.value)}
+              value={formData.player2FirstName}
+              onChange={handleChange}
             />
+            {errors.player2FirstName && (
+              <p className="error">{errors.player2FirstName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -131,9 +236,12 @@ function RegisterPage() {
               type="text"
               id="player2LastName"
               name="player2LastName"
-              value={player2LastName}
-              onChange={(e) => setPlayer2LastName(e.target.value)}
+              value={formData.player2LastName}
+              onChange={handleChange}
             />
+            {errors.player2LastName && (
+              <p className="error">{errors.player2LastName}</p>
+            )}
           </div>
 
           {/* Player 3 */}
@@ -143,9 +251,12 @@ function RegisterPage() {
               type="text"
               id="player3FirstName"
               name="player3FirstName"
-              value={player3FirstName}
-              onChange={(e) => setPlayer3FirstName(e.target.value)}
+              value={formData.player3FirstName}
+              onChange={handleChange}
             />
+            {errors.player3FirstName && (
+              <p className="error">{errors.player3FirstName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -154,21 +265,29 @@ function RegisterPage() {
               type="text"
               id="player3LastName"
               name="player3LastName"
-              value={player3LastName}
-              onChange={(e) => setPlayer3LastName(e.target.value)}
+              value={formData.player3LastName}
+              onChange={handleChange}
             />
+            {errors.player3LastName && (
+              <p className="error">{errors.player3LastName}</p>
+            )}
           </div>
 
           {/* Substitute 1 */}
           <div className="form-group">
-            <label htmlFor="substitute1FirstName">Substitute 1 First Name:</label>
+            <label htmlFor="substitute1FirstName">
+              Substitute 1 First Name:
+            </label>
             <input
               type="text"
               id="substitute1FirstName"
               name="substitute1FirstName"
-              value={substitute1FirstName}
-              onChange={(e) => setSubstitute1FirstName(e.target.value)}
+              value={formData.substitute1FirstName}
+              onChange={handleChange}
             />
+            {errors.substitute1FirstName && (
+              <p className="error">{errors.substitute1FirstName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -177,9 +296,12 @@ function RegisterPage() {
               type="text"
               id="substitute1LastName"
               name="substitute1LastName"
-              value={substitute1LastName}
-              onChange={(e) => setSubstitute1LastName(e.target.value)}
+              value={formData.substitute1LastName}
+              onChange={handleChange}
             />
+            {errors.substitute1LastName && (
+              <p className="error">{errors.substitute1LastName}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -188,6 +310,7 @@ function RegisterPage() {
               type="file"
               id="teamLogoPath"
               name="teamLogoPath"
+              accept="image/*"
               onChange={handleFileChange}
             />
           </div>
@@ -197,15 +320,14 @@ function RegisterPage() {
             <textarea
               id="comment"
               name="comment"
-              rows="3"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
+              value={formData.comment}
+              onChange={handleChange}
+            ></textarea>
           </div>
 
-          <div className="form-group submit-btn">
-            <button type="submit">Register</button>
-          </div>
+          <button type="submit" className="register-button">
+            Register
+          </button>
         </form>
       </div>
     </div>

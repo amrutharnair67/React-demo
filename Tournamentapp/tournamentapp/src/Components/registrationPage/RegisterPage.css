@@ -5,7 +5,7 @@
     min-height: 100vh; 
     
     padding: 20px; 
-    margin-top: 50%;
+    margin-top: 35%;
     box-sizing: border-box; 
 }
 
@@ -60,7 +60,7 @@
     resize: none;
   }
   
-  .form-group.submit-btn {
+  .register-button {
     grid-column: span 2; 
     display: flex;
     justify-content: center;
@@ -74,9 +74,19 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 30%;
+    margin: 0 auto;
+    
   }
   
   button:hover {
     background-color: #30c02b; 
   }
+  .error {
+    color: rgb(206, 112, 112); 
+    font-size: 1em; 
+    font-family: 'Times New Roman', Times, serif; 
+    margin-top: 5px; 
+  }
+  
   
