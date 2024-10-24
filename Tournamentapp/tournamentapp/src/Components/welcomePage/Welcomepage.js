@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./Welcomepage.css";
+import "../welcomePage/Welcomepage.css";
 
 export default class Welcomepage extends Component {
   render() {
     return (
       <div>
         <div className="container">
-          <div className="text-center">
+          <div className="welcome-message">
             <h1>Welcome to Mega Tournament Registration</h1>
             <p>
               Get started by registering your team or logging in if you already
@@ -28,7 +28,7 @@ export default class Welcomepage extends Component {
             </div>
           </div>
 
-          <div className="right-image" >
+          <div className="marqueemessage" >
            <marquee>Join the Ultimate Tournament and Make History! Register Now and
            Compete with the Best!</marquee> 
           </div>
