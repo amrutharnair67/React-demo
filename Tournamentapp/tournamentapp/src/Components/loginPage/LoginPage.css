@@ -5,7 +5,9 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fdfdfd;
+  color:rgb(0, 0, 0) ;
+  background-color: #94a9bf;
+  
 }
 .background {
   background-color: #293f54;
@@ -17,16 +19,16 @@
   justify-content: center;
   align-items: center;
 }
-h2 {
+h3 {
   text-align: center;
-  color: #333;
+  color:black;
   font-family: "Times New Roman", Times, serif;
 }
 
 label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: #000000;
   font-family: "Times New Roman", Times, serif;
   font-weight: 200;
 }
@@ -37,6 +39,7 @@ input {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
+  color: #000000;
 }
 
 button {

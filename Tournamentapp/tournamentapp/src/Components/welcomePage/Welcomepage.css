@@ -7,20 +7,21 @@ html {
   overflow-x: hidden;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-image: url("../../assets/top-view-frame-with-sports-attributes-copy-space_1015293-104040.avif");
 }
 
 h1 {
-  color: #eae3e3;
-  font-size: 2em;
+  color: #ffffff;
+  font-size: 3em;
   font-family: "Times New Roman", Times, serif;
   font-weight: bolder;
   text-align: center;
   margin-top: 40px;
 }
 
-.welcome-message p {
+
+.welcomemessage p {
   color: rgb(229, 255, 0);
   font-weight: bolder;
   font-family: "Times New Roman", Times, serif;
@@ -28,12 +29,13 @@ h1 {
   margin: 10px 0;
 }
 
-.container {
+.welcomecontainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  text-align: center;
 }
 
 .features-row {
@@ -51,7 +53,7 @@ h1 {
   font-size: 1.2em;
 }
 
-.marqueemessage {
+.marqbox {
   background-color: #4e4e56;
   
   font-family: 'Times New Roman', Times, serif;

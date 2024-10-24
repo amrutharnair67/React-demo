@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "../loginPage/LoginPage.css"; // Import your CSS file for styling
+import "../loginPage/LoginPage.css"; 
 
 export default class LoginPage extends Component {
   render() {
     return (
       <div className="background">
         <div className="login-container">
-          <h2>Login</h2>
+          <h3>Login</h3>
           <form>
             <div>
               <label htmlFor="email">Email:</label>

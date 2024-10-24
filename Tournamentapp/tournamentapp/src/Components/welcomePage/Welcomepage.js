@@ -5,8 +5,8 @@ export default class Welcomepage extends Component {
   render() {
     return (
       <div>
-        <div className="container">
-          <div className="welcome-message">
+        <div className="welcomecontainer">
+          <div className="welcomemessage">
             <h1>Welcome to Mega Tournament Registration</h1>
             <p>
               Get started by registering your team or logging in if you already
@@ -28,7 +28,7 @@ export default class Welcomepage extends Component {
             </div>
           </div>
 
-          <div className="marqueemessage" >
+          <div className="marqbox" >
            <marquee>Join the Ultimate Tournament and Make History! Register Now and
            Compete with the Best!</marquee> 
           </div>

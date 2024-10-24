@@ -4,6 +4,8 @@ import RegisterPage from './Components/registrationPage/RegisterPage';
 
 import LoginPage from './Components/loginPage/LoginPage';
 import Welcomepage from './Components/welcomePage/Welcomepage';
+import ForgotPassword from './Components/forgotpasswordPage/ForgotpasswordPage';
+import ResetPassword from './Components/resetpasswordPage/ResetpasswordPage';
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
 
         <Route path='/' element={<Welcomepage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/regiter' element={<RegisterPage/>}/>
+        <Route path='/register' element={<RegisterPage/>}/>
+        <Route path='/forgotpassword' element={<ForgotPassword/>}/>
+        <Route path='/resetpassword' element={<ResetPassword/>}/>
         
       </Routes>
       
