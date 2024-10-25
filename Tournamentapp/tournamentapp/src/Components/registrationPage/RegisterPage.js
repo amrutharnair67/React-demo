@@ -43,7 +43,7 @@ function RegisterPage() {
 
   const validateEmail = (email) => {
     const emailPattern =
-      /^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+      /^[a-z]+([.]?[a-z0-9]+)*@[a-z]+\.[a-z]{2,}$/;
     return emailPattern.test(email);
   };
 
