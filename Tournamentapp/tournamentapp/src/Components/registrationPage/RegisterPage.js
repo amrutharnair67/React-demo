@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../registrationPage/RegisterPage.css";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -20,6 +22,9 @@ function RegisterPage() {
   });
 
   const [errors, setErrors] = useState({});
+  const [serverMessage, setServerMessage] = useState({ type: "", message: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,23 +32,27 @@ function RegisterPage() {
       ...formData,
       [name]: value,
     });
-
-    setErrors({
-      ...errors,
-      [name]: "",
-    });
+    validateField(name, value); 
   };
 
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      teamLogoPath: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    if (file) {
+      const validTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (validTypes.includes(file.type)) {
+        setFormData({
+          ...formData,
+          teamLogoPath: file,
+        });
+        setErrorMessage(""); 
+      } else {
+        setErrorMessage("Only PNG and JPG images are allowed.");
+      }
+    }
   };
 
   const validateEmail = (email) => {
-    const emailPattern =
-      /^[a-z]+([.]?[a-z0-9]+)*@[a-z]+\.[a-z]{2,}$/;
+    const emailPattern = /^[a-z]+([.]?[a-z0-9]+)*@[a-z]+\.[a-z]{2,}$/;
     return emailPattern.test(email);
   };
 
@@ -63,79 +72,126 @@ function RegisterPage() {
     return namePattern.test(name);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = {};
-    if (!formData.teamName) errors.teamName = "Team Name is required.";
-    else if (!validateName(formData.teamName))
-      errors.teamName = "Team Name must only contain letters.";
-    if (!formData.email) {
-      errors.email = "Email is required.";
-    } else if (!validateEmail(formData.email)) {
-      errors.email = "Invalid email format.";
-    }
-    if (!formData.password) {
-      errors.password = "Password is required.";
-    } else if (!validatePassword(formData.password)) {
-      errors.password =
-        "Password must be 8+ chars, with 1 uppercase, 1 lowercase, 1 number & 1 special char.";
-    }
-    if (!formData.phoneNumber) {
-      errors.phoneNumber = "Phone Number is required.";
-    } else if (!validatePhoneNumber(formData.phoneNumber)) {
-      errors.phoneNumber = "Phone Number must be 10 digits.";
-    }
-    if (!formData.captainFirstName)
-      errors.captainFirstName = "Captain's First Name is required.";
-    else if (!validateName(formData.captainFirstName))
-      errors.captainFirstName =
-        "Captain's First Name must only contain letters.";
-    if (!formData.captainLastName)
-      errors.captainLastName = "Captain's Last Name is required.";
-    else if (!validateName(formData.captainLastName))
-      errors.captainLastName = "Captain's Last Name must only contain letters.";
-    if (!formData.player2FirstName)
-      errors.player2FirstName = "Player 2 First Name is required.";
-    else if (!validateName(formData.player2FirstName))
-      errors.player2FirstName =
-        "Player 2 First Name must only contain letters.";
-    if (!formData.player2LastName)
-      errors.player2LastName = "Player 2 Last Name is required.";
-    else if (!validateName(formData.player2LastName))
-      errors.player2LastName = "Player 2 Last Name must only contain letters.";
-    if (!formData.player3FirstName)
-      errors.player3FirstName = "Player 3 First Name is required.";
-    else if (!validateName(formData.player3FirstName))
-      errors.player3FirstName =
-        "Player 3 First Name must only contain letters.";
-    if (!formData.player3LastName)
-      errors.player3LastName = "Player 3 Last Name is required.";
-    else if (!validateName(formData.player3LastName))
-      errors.player3LastName = "Player 3 Last Name must only contain letters.";
-    if (!formData.substitute1FirstName)
-      errors.substitute1FirstName = "Substitute 1 First Name is required.";
-    else if (!validateName(formData.substitute1FirstName))
-      errors.substitute1FirstName =
-        "Substitute 1 First Name must only contain letters.";
-    if (!formData.substitute1LastName)
-      errors.substitute1LastName = "Substitute 1 Last Name is required.";
-    else if (!validateName(formData.substitute1LastName))
-      errors.substitute1LastName =
-        "Substitute 1 Last Name must only contain letters.";
-
-    if (Object.keys(errors).length) {
-      setErrors(errors);
-      return;
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "teamName":
+        if (!value) error = "Team Name is required.";
+        else if (!validateName(value))
+          error = "Team Name must only contain letters.";
+        break;
+      case "email":
+        if (!value) error = "Email is required.";
+        else if (!validateEmail(value)) error = "Invalid email format.";
+        break;
+      case "password":
+        if (!value) error = "Password is required.";
+        else if (!validatePassword(value))
+          error =
+            "Password must be 8+ chars, with 1 uppercase, 1 lowercase, 1 number & 1 special char.";
+        break;
+      case "phoneNumber":
+        if (!value) error = "Phone Number is required.";
+        else if (!validatePhoneNumber(value))
+          error = "Phone Number must be 10 digits.";
+        break;
+      case "captainFirstName":
+      case "captainLastName":
+      case "player2FirstName":
+      case "player2LastName":
+      case "player3FirstName":
+      case "player3LastName":
+      case "substitute1FirstName":
+      case "substitute1LastName":
+        if (!value) error = `${name.replace(/[0-9]/g, "")} is required.`;
+        else if (!validateName(value))
+          error = `${name.replace(/[0-9]/g, "")} must only contain letters.`;
+        break;
+      default:
+        break;
     }
 
-    console.log("Registration success:", formData);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    if (hasErrors) {
+      setServerMessage({
+        type: "error",
+        message: "Please fix the errors before submitting the form.",
+      });
+      return;
+    }
+  
+    try {
+     
+      const response = await axios.post(
+        "http://localhost:8080/api/users/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      
+      setServerMessage({
+        type: "success",
+        message: response.data.message || "Registration successful!",
+      });
+  
+      
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+  
+    } catch (error) {
+      
+      let errorMessage;
+      if (error.response) {
+       
+        if (error.response.status === 409) {
+          errorMessage = "User is already registered. Please log in.";
+        } else if (error.response.data && typeof error.response.data === "object") {
+          
+          const errorDetails = Object.values(error.response.data).join(", ");
+          errorMessage = errorDetails || "Registration failed. Please try again.";
+        } else {
+          errorMessage = error.response.data.message || "Registration failed. Please try again.";
+        }
+      } else {
+        
+        errorMessage = "Network error. Please check your connection and try again.";
+      }
+  
+      setServerMessage({ type: "error", message: errorMessage });
+      console.error("Registration failed:", errorMessage);
+    }
+  };
+  
   return (
     <div className="maincontainer">
       <div className="container">
         <h2 className="title">Register Your Team Now</h2>
+
+        {serverMessage.message && (
+          <div
+            className={
+              serverMessage.type === "error" ? "error-box" : "success-box"
+            }
+          >
+            {serverMessage.message}
+          </div>
+        )}
+
         <form className="registration-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="teamName">Team Name:</label>
@@ -304,15 +360,18 @@ function RegisterPage() {
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="teamLogoPath">Team Logo:</label>
+          <div>
             <input
               type="file"
-              id="teamLogoPath"
-              name="teamLogoPath"
-              accept="image/*"
+              accept="image/png, image/jpeg, image/jpg"
               onChange={handleFileChange}
             />
+
+            {errorMessage && (
+              <p style={{ color: "#d9534f", fontSize: "10px" }}>
+                {errorMessage}
+              </p>
+            )}
           </div>
 
           <div className="form-group">
