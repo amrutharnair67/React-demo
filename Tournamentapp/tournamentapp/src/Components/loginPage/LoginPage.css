@@ -10,7 +10,7 @@
   background-image: url("../../assets/images.jpg");
   
 }
-.background {
+.loginbackground {
   background-color: #293f54;
   background-image: url("../../assets/top-view-frame-with-sports-attributes-copy-space_1015293-104040.avif");
   background-repeat: repeat;
@@ -58,8 +58,8 @@ button {
 
 .button-container {
   display: flex;
-  justify-content: center; /* Centers the button horizontally */
-  align-items: center;    /* Centers the button vertically if the container has a set height */
+  justify-content: center; 
+  align-items: center;   
   width: 50%;
   margin: 0 auto;
 }

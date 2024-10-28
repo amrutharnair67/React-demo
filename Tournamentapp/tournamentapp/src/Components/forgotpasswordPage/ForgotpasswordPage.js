@@ -56,7 +56,7 @@ const ForgotPassword = () => {
                     {loading ? "Submitting..." : "Submit"}
                 </button>
 
-                {/* Message Box for Error and Success Messages */}
+                
                 {errorMessage && (
                     <div className="message-box error-box">
                         <p>{errorMessage}</p>

@@ -1,0 +1,48 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: Arial, sans-serif;
+    position: relative;
+    padding: 20px;
+}
+
+.dashboard-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.dashboard-container p {
+    background-color: rgba(65, 54, 54, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #71e816;
+    font-size: 1.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h2 {
+    margin-top: 15px;
+    font-size: 1.8em;
+    color: #555;
+}
+
+.logout-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout-link:hover {
+    background-color: #672121;
+}
