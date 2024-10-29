@@ -17,8 +17,10 @@ function RegisterPage() {
     player3LastName: "",
     substitute1FirstName: "",
     substitute1LastName: "",
-    teamLogoPath: null,
+    teamLogo: null,
     comment: "",
+    username: "",
+    teamLogoPath: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -42,7 +44,7 @@ function RegisterPage() {
       if (validTypes.includes(file.type)) {
         setFormData({
           ...formData,
-          teamLogoPath: file,
+          teamLogo: file,
         });
         setErrorMessage(""); 
       } else {
@@ -119,8 +121,8 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    
+
+    // Check if there are any validation errors
     const hasErrors = Object.values(errors).some((error) => error !== "");
     if (hasErrors) {
       setServerMessage({
@@ -129,30 +131,37 @@ function RegisterPage() {
       });
       return;
     }
-  
+
     try {
-     
+
+      const formDataToSend = new FormData();
+
+      
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
+
+      
       const response = await axios.post(
         "http://localhost:8080/api/users/register",
-        formData,
+        formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data", 
           },
         }
       );
-  
-      
+
       setServerMessage({
         type: "success",
         message: response.data.message || "Registration successful!",
       });
-  
-      
+
+    
       setTimeout(() => {
         navigate("/login");
       }, 2000);
-  
+
     } catch (error) {
       
       let errorMessage;
@@ -161,22 +170,20 @@ function RegisterPage() {
         if (error.response.status === 409) {
           errorMessage = "User is already registered. Please log in.";
         } else if (error.response.data && typeof error.response.data === "object") {
-          
+         
           const errorDetails = Object.values(error.response.data).join(", ");
           errorMessage = errorDetails || "Registration failed. Please try again.";
         } else {
           errorMessage = error.response.data.message || "Registration failed. Please try again.";
         }
       } else {
-        
         errorMessage = "Network error. Please check your connection and try again.";
       }
-  
+
       setServerMessage({ type: "error", message: errorMessage });
       console.error("Registration failed:", errorMessage);
     }
   };
-  
   return (
     <div className="maincontainer">
       <div className="container">
@@ -361,6 +368,7 @@ function RegisterPage() {
           </div>
 
           <div>
+            <label style={{color :"white"}}>Team Logo</label>
             <input
               type="file"
               accept="image/png, image/jpeg, image/jpg"
@@ -380,6 +388,24 @@ function RegisterPage() {
               id="comment"
               name="comment"
               value={formData.comment}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <textarea
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="teamLogoPath">teamLogoPath:</label>
+            <textarea
+              id="teamLogoPath"
+              name="teamLogoPath"
+              value={formData.teamLogoPath}
               onChange={handleChange}
             ></textarea>
           </div>

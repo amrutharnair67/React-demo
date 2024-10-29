@@ -25,6 +25,7 @@ const ForgotPassword = () => {
             });
 
             setSuccessMessage(response.data.message || "Check your email for reset instructions.");
+            setEmail(""); 
         } catch (error) {
             setLoading(false);
             if (error.response) {
